@@ -1,0 +1,39 @@
+facebook:
+  label: Facebook
+  permalink: /facebook
+  description: Facebook tag description
+
+hello:
+  label: Hello
+  permalink: /hello
+  description: Hello tag description
+
+docusaurus:
+  label: Docusaurus
+  permalink: /docusaurus
+  description: Docusaurus tag description
+
+hola:
+  label: Hola
+  permalink: /hola
+  description: Hola tag description
+
+flink:
+  label: Flink
+  permalink: /flink
+  description: Apache Flink stream processing tutorials and examples
+
+java:
+  label: Java
+  permalink: /java
+  description: Java programming tutorials and examples
+
+streaming:
+  label: Streaming
+  permalink: /streaming
+  description: Stream processing and real-time data processing
+
+tutorial:
+  label: Tutorial
+  permalink: /tutorial
+  description: Step-by-step tutorials and guides
