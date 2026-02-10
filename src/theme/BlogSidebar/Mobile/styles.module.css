@@ -1,0 +1,9 @@
+.yearGroupHeading {
+  margin: 1rem 0.75rem 0.5rem;
+}
+
+.divider {
+  margin: 0.5rem 0.75rem;
+  border: none;
+  border-top: 1px solid var(--ifm-toc-border-color);
+}

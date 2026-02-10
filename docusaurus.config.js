@@ -8,7 +8,7 @@
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Arun Lakshman R',
+  title: 'Arun\'s Blog',
   tagline: 'Personal Website',
   favicon: 'img/favicon.ico',
 
@@ -78,13 +78,11 @@ const config = {
         disableSwitch: false,
       },
       navbar: {
-        title: 'Arun Lakshman R',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-        },
+        title: 'Arun Lakshman',
         items: [
-          {to: '/', label: 'Blog', position: 'left'},
+          {to: '/', label: 'Blog', position: 'left', activeBaseRegex: '^/(page/|tags|archive|$)'},
+          {to: '/about', label: 'About', position: 'left'},
+          {to: '/flink-reads', label: 'Flink Reads', position: 'left'},
           {
             href: 'https://github.com/arunlakshman',
             label: 'GitHub',
@@ -94,7 +92,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `Copyright © ${new Date().getFullYear()} Arun Lakshman R`,
+        copyright: `Copyright © ${new Date().getFullYear()} Arun Lakshman Ravichandran`,
       },
       prism: {
         additionalLanguages: ['bash', 'java', 'yaml', 'json', 'docker'],

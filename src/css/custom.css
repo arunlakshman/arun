@@ -9,7 +9,7 @@
 @tailwind utilities;
 
 /* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
 
@@ -118,7 +118,7 @@
 
 /* Global styles */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -241,13 +241,13 @@ pre *,
 
 /* Markdown content */
 .markdown {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .markdown p,
 .markdown li,
 .markdown blockquote {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .markdown h1,
@@ -309,7 +309,7 @@ pre *,
 article,
 .blog-wrapper,
 .blog-post-page {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .article__header,
@@ -318,7 +318,7 @@ article,
 .article__content,
 .blog-wrapper *,
 .blog-post-page * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .article__title,
@@ -348,7 +348,7 @@ article h2 a,
 .avatar__name-link,
 .avatar__intro,
 .avatar__subtitle {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 
@@ -1082,20 +1082,22 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
 }
 
 /* ============================================
-   BLOG SIDEBAR - Hidden (left sidebar with recent posts)
+   BLOG SIDEBAR - Custom layout with About link
    ============================================ */
 
-/* Hide the left blog sidebar (Recent posts) completely */
+/* Show the left blog sidebar with compact width */
 .row > aside.col.col--3:first-child {
-  display: none !important;
+  --ifm-col-width: 15% !important;
+  flex: 0 0 15% !important;
+  max-width: 15% !important;
 }
 
-/* Blog content takes 70% with 10% left margin for whitespace */
+/* Blog content takes main space */
 .row > main.col {
-  --ifm-col-width: 70% !important;
-  flex: 0 0 70% !important;
-  max-width: 70% !important;
-  margin-left: 10% !important;
+  --ifm-col-width: 65% !important;
+  flex: 0 0 65% !important;
+  max-width: 65% !important;
+  margin-left: 0 !important;
 }
 
 /* Right TOC takes 20% */
@@ -1104,3 +1106,127 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   flex: 0 0 20% !important;
   max-width: 20% !important;
 }
+
+/* ============================================
+   ABOUT PAGE STYLES
+   ============================================ */
+
+.about-page {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.about-container {
+  max-width: 640px;
+  width: 100%;
+}
+
+.about-header {
+  margin-bottom: 2.5rem;
+}
+
+.about-name {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif !important;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme='dark'] .about-name {
+  background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-role {
+  font-size: 1.1rem;
+  color: var(--ifm-font-color-secondary);
+  margin: 0;
+}
+
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section-title {
+  font-family: 'EB Garamond', Georgia, 'Times New Roman', serif !important;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--ifm-font-color-base);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.about-bio {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme='dark'] .about-bio {
+  color: #cbd5e1;
+}
+
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.about-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+[data-theme='dark'] .about-tag {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.about-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.about-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.about-social-link:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary) !important;
+  background-color: var(--ifm-color-emphasis-100);
+  transform: translateY(-1px);
+}
+
+.about-social-link svg {
+  flex-shrink: 0;
+}
+

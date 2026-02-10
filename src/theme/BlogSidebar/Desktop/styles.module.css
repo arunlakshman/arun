@@ -1,0 +1,86 @@
+.sidebar {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 2rem);
+}
+
+/* Custom navigation section */
+.customNav {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+.customNavLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ifm-font-color-base);
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.customNavLink:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.customNavLinkActive {
+  color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-primary-lightest);
+}
+
+.customNavIcon {
+  flex-shrink: 0;
+}
+
+/* Recent posts section */
+.sidebarItemTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-font-color-secondary);
+}
+
+.sidebarItemList {
+  font-size: 0.85rem;
+}
+
+.sidebarItem {
+  margin-top: 0.5rem;
+}
+
+.sidebarItemLink {
+  color: var(--ifm-font-color-base);
+  display: block;
+  padding: 0.25rem 0;
+  line-height: 1.4;
+}
+
+.sidebarItemLink:hover {
+  text-decoration: none;
+  color: var(--ifm-color-primary);
+}
+
+.sidebarItemLinkActive {
+  color: var(--ifm-color-primary) !important;
+  font-weight: 500;
+}
+
+@media (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.yearGroupHeading {
+  margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
+}

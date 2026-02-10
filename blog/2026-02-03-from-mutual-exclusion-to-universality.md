@@ -1,17 +1,17 @@
 ---
 slug: cas-universal-primitive
 title: The Universal Primitive - How CAS Became the Foundation of Concurrent Programming
-authors: [Arun Lakshman R]
+authors: [Arun]
 tags: [concurrency, synchronization, cas, distributed-systems, algorithms]
 date: 2026-02-03
 ---
 
 
-*This blog post is inspired by the first 6 chapters of [The Art of Multiprocessor Programming](https://www.amazon.com/Art-Multiprocessor-Programming-Maurice-Herlihy/dp/0124159508) by Maurice Herlihy and Nir Shavit.*
-
-<!-- truncate -->
+> This blog post is inspired by the first 6 chapters of [The Art of Multiprocessor Programming](https://www.amazon.com/Art-Multiprocessor-Programming-Maurice-Herlihy/dp/0124159508) by Maurice Herlihy and Nir Shavit.
 
 Imagine building a distributed counter that must handle millions of updates per second across dozens of threads. Traditional locks serialize access, creating bottlenecks. You need something better: a way for threads to coordinate without blocking, without deadlocks, without the performance collapse that comes with contention. This isn't just a performance optimization problem; it's a fundamental question about what synchronization primitives are actually necessary. Can we build wait-free concurrent data structures? Which hardware instructions must processors provide? The answer, discovered through decades of theoretical work, reveals that one primitive, Compare-And-Swap (CAS), is universal.
+
+<!-- truncate -->
 
 **Modern processors have dozens of cores, and our applications must leverage them all.** From distributed databases processing millions of transactions per second to real-time analytics engines crunching streaming data, concurrent programming has moved from a specialized skill to a fundamental requirement. Yet building correct concurrent systems remains notoriously difficult: race conditions lurk in seemingly innocent code, deadlocks emerge from complex lock hierarchies, and performance bottlenecks appear where we least expect them.
 
