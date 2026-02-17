@@ -1,6 +1,6 @@
 ---
 slug: flink-rpc-architecture-pekko
-title: "Inside Flink’s Control Plane: How Apache Pekko Powers the RPC Layer"
+title: "Inside Flink's Control Plane: How Apache Pekko Powers the RPC Layer"
 authors: [Arun]
 tags: [flink, akka, pekko, distributed-systems, concurrency, rpc]
 date: 2026-02-15
@@ -91,7 +91,7 @@ Flink builds its RPC system in layers. Each layer has a specific responsibility.
 
 ![Flink RPC Architecture Layers](/img/blog/flink-rpc/rpc_arch.svg)
 
-To understand Flink's RPC architecture, it helps to draw parallels with familiar Java patterns. If you've used the AWS SDK, Apache Tomcat, or Java Servlets, you already understand the core concepts—just with different names.
+To understand Flink's RPC architecture, it helps to draw parallels with familiar Java patterns. If you've used the AWS SDK, Apache Tomcat, or Java Servlets, you already understand the core concepts - just with different names.
 
 ### Mapping Flink RPC to Familiar Java Patterns
 
@@ -129,13 +129,13 @@ public interface JobMasterGateway extends RpcGateway {
 
 **Key Differences from AWS SDK:**
 
-1. **Async by Default:** Every `RpcGateway` method returns `CompletableFuture`. AWS SDK v2 offers both sync (`S3Client`) and async (`S3AsyncClient`) variants. Flink chose async-only to make the non-blocking nature explicit. Callers never block waiting for results—they attach callbacks or chain operations.
+1. **Async by Default:** Every `RpcGateway` method returns `CompletableFuture`. AWS SDK v2 offers both sync (`S3Client`) and async (`S3AsyncClient`) variants. Flink chose async-only to make the non-blocking nature explicit. Callers never block waiting for results - they attach callbacks or chain operations.
 
 2. **Bidirectional:** AWS SDK clients only make outbound calls. Flink gateways are bidirectional. `TaskExecutorGateway` lets JobMaster call into TaskManager. `JobMasterGateway` lets TaskManager call into JobMaster. Both sides expose gateways.
 
 3. **Internal Network:** AWS SDK calls traverse the public internet to AWS services. Flink RPC calls stay within the cluster's internal network, typically using direct TCP connections.
 
-[JobMasterGateway](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/jobmaster/JobMasterGateway.java) declares methods that callers can invoke on JobMaster. The interface serves as documentation—new engineers read it to understand what operations JobMaster supports. Method signatures specify exact parameter types and return types. Javadoc explains semantics. The interface is the source of truth for the RPC contract.
+[JobMasterGateway](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/jobmaster/JobMasterGateway.java) declares methods that callers can invoke on JobMaster. The interface serves as documentation - new engineers read it to understand what operations JobMaster supports. Method signatures specify exact parameter types and return types. Javadoc explains semantics. The interface is the source of truth for the RPC contract.
 
 ### RpcEndpoint: The Base Class (Like a Servlet or Spring Controller)
 
@@ -186,13 +186,13 @@ Tomcat's thread-per-request model works well for stateless web applications. Eac
 **Key RpcEndpoint Features:**
 
 1. **MainThreadExecutor:** The constructor creates a dedicated executor bound to the endpoint. All RPC calls execute through this executor. The class provides methods to schedule work on the main thread:
-   - `runAsync(Runnable)` — queues a task for later execution
-   - `callAsync(Callable<V>)` — queues a task and returns `CompletableFuture<V>`
-   - `scheduleRunAsync(Runnable, Duration)` — queues work with a delay
+   - `runAsync(Runnable)` - queues a task for later execution
+   - `callAsync(Callable<V>)` - queues a task and returns `CompletableFuture<V>`
+   - `scheduleRunAsync(Runnable, Duration)` - queues work with a delay
 
 2. **Lifecycle Hooks:** Like Servlet's `init()` and `destroy()`:
-   - `onStart()` — runs when the endpoint begins accepting messages
-   - `onStop()` — runs during shutdown
+   - `onStart()` - runs when the endpoint begins accepting messages
+   - `onStop()` - runs during shutdown
    Both execute on the main thread, making initialization and cleanup thread-safe.
 
 3. **Thread Safety Check:** The `validateRunsInMainThread()` method catches programming errors early:
@@ -208,20 +208,20 @@ protected void validateRunsInMainThread() {
 
 **Component Hierarchy:**
 
-- [JobMaster](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/jobmaster/JobMaster.java) extends `FencedRpcEndpoint` — coordinates job execution
-- [TaskExecutor](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/taskexecutor/TaskExecutor.java) extends `RpcEndpoint` — runs tasks on worker nodes
-- [ResourceManager](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/resourcemanager/ResourceManager.java) extends `FencedRpcEndpoint` — manages cluster resources
-- [Dispatcher](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/dispatcher/Dispatcher.java) extends `FencedRpcEndpoint` — handles job submission
+- [JobMaster](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/jobmaster/JobMaster.java) extends `FencedRpcEndpoint` - coordinates job execution
+- [TaskExecutor](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/taskexecutor/TaskExecutor.java) extends `RpcEndpoint` - runs tasks on worker nodes
+- [ResourceManager](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/resourcemanager/ResourceManager.java) extends `FencedRpcEndpoint` - manages cluster resources
+- [Dispatcher](https://github.com/apache/flink/blob/master/flink-runtime/src/main/java/org/apache/flink/runtime/dispatcher/Dispatcher.java) extends `FencedRpcEndpoint` - handles job submission
 
 ### RpcService: The Factory and Connection Manager (Like Tomcat's Connector)
 
-[RpcService](https://github.com/apache/flink/blob/master/flink-rpc/flink-rpc-core/src/main/java/org/apache/flink/runtime/rpc/RpcService.java) is an **abstraction** that manages endpoint lifecycles and gateway connections. It defines the contract for how endpoints are created and how connections are established—but not *how* messages travel over the wire.
+[RpcService](https://github.com/apache/flink/blob/master/flink-rpc/flink-rpc-core/src/main/java/org/apache/flink/runtime/rpc/RpcService.java) is an **abstraction** that manages endpoint lifecycles and gateway connections. It defines the contract for how endpoints are created and how connections are established - but not *how* messages travel over the wire.
 
 Currently, the only production implementation is [PekkoRpcService](https://github.com/apache/flink/blob/master/flink-rpc/flink-rpc-akka/src/main/java/org/apache/flink/runtime/rpc/pekko/PekkoRpcService.java), which uses Pekko's actor remoting over TCP. However, the abstraction exists precisely so the transport can be swapped without changing Flink's core components. Future implementations could use:
 
-- **gRPC** — Industry-standard RPC with HTTP/2, protobuf serialization, and mature tooling
-- **HTTP/REST** — Simpler debugging, standard load balancers, firewall-friendly
-- **Custom TCP** — Optimized binary protocol without Pekko's overhead
+- **gRPC** - Industry-standard RPC with HTTP/2, protobuf serialization, and mature tooling
+- **HTTP/REST** - Simpler debugging, standard load balancers, firewall-friendly
+- **Custom TCP** - Optimized binary protocol without Pekko's overhead
 
 The key insight: `JobMaster`, `TaskExecutor`, and `ResourceManager` don't know or care whether messages travel via Pekko actors, gRPC streams, or HTTP requests. They only interact with the `RpcService` abstraction.
 
@@ -258,17 +258,17 @@ JobMasterGateway gateway = rpcService.connect(address, JobMasterGateway.class).g
 
 **Key RpcService Responsibilities (Interface Contract):**
 
-These responsibilities are defined by the `RpcService` interface. Any implementation—Pekko, gRPC, or HTTP—must fulfill them:
+These responsibilities are defined by the `RpcService` interface. Any implementation - Pekko, gRPC, or HTTP - must fulfill them:
 
 1. **Server Creation:** When JobMaster instantiates, it calls `rpcService.startServer(this)`. The implementation creates whatever underlying machinery is needed (actors for Pekko, gRPC stubs for gRPC, servlet registration for HTTP) and starts the main thread executor. The endpoint is now ready to receive messages.
 
 2. **Client Connection:** A TaskManager needs to communicate with JobMaster on another machine. It calls `rpcService.connect(address, JobMasterGateway.class)`. The implementation returns a proxy object implementing `JobMasterGateway`. Whether that proxy sends Pekko messages, gRPC calls, or HTTP requests is an implementation detail hidden from the caller.
 
-3. **Transport Management:** The implementation manages its transport layer—ActorSystem for Pekko, ManagedChannel for gRPC, HttpClient for HTTP. It handles configuration, connection pooling, and graceful shutdown.
+3. **Transport Management:** The implementation manages its transport layer - ActorSystem for Pekko, ManagedChannel for gRPC, HttpClient for HTTP. It handles configuration, connection pooling, and graceful shutdown.
 
 **Why This Abstraction Matters:**
 
-The Pekko (formerly Akka) license change in 2022 forced Flink to migrate from Akka to Pekko. This abstraction means a future migration to gRPC or HTTP would only require implementing a new `RpcService`—no changes to `JobMaster`, `TaskExecutor`, or `ResourceManager`.
+The Pekko (formerly Akka) license change in 2022 forced Flink to migrate from Akka to Pekko. This abstraction means a future migration to gRPC or HTTP would only require implementing a new `RpcService` - no changes to `JobMaster`, `TaskExecutor`, or `ResourceManager`.
 
 ### RpcServer: The Message Dispatcher (Like DispatcherServlet)
 
@@ -406,7 +406,7 @@ The remote machine receives TCP bytes. Pekko's network layer reads the frame and
 
 **Step 2: Actor Receives Message (Like Servlet.service())**
 
-[PekkoRpcActor](https://github.com/apache/flink/blob/master/flink-rpc/flink-rpc-akka/src/main/java/org/apache/flink/runtime/rpc/pekko/PekkoRpcActor.java) receives the message in its `onReceive()` method—the entry point for all incoming messages.
+[PekkoRpcActor](https://github.com/apache/flink/blob/master/flink-rpc/flink-rpc-akka/src/main/java/org/apache/flink/runtime/rpc/pekko/PekkoRpcActor.java) receives the message in its `onReceive()` method - the entry point for all incoming messages.
 
 ```java
 // Conceptually similar to:
@@ -423,7 +423,7 @@ public void onReceive(Object message) {
 }
 ```
 
-**Step 3: Mailbox Queuing (Unlike Tomcat—This is the Key Difference)**
+**Step 3: Mailbox Queuing (Unlike Tomcat - This is the Key Difference)**
 
 Here's where Flink diverges from traditional web servers. Tomcat would spawn a thread and execute immediately. Flink enqueues in the mailbox:
 
@@ -436,7 +436,7 @@ The message joins the queue behind any previously arrived messages. FIFO orderin
 
 **Step 4: Main Thread Execution (Single-Threaded Handler)**
 
-The main thread dequeues the invocation when it reaches the front. It uses reflection to call `updateTaskExecutionState(state)` on the `JobMaster` instance. The method executes with full access to internal state—no locks needed.
+The main thread dequeues the invocation when it reaches the front. It uses reflection to call `updateTaskExecutionState(state)` on the `JobMaster` instance. The method executes with full access to internal state - no locks needed.
 
 **Step 5: Response (Like HTTP Response)**
 
@@ -463,7 +463,7 @@ The method returns `CompletableFuture<Acknowledge>`. The actor captures the resu
 
 The RpcEndpoint pattern transforms how developers write distributed coordination code. Compare two approaches to updating ExecutionGraph.
 
-**Without RpcEndpoint (Hypothetical—Like Traditional Servlet):**
+**Without RpcEndpoint (Hypothetical - Like Traditional Servlet):**
 
 ```java
 // Similar to a Servlet with shared state
@@ -555,6 +555,6 @@ Flink's RPC architecture solves a fundamental distributed systems problem. Multi
 
 Each component extends RpcEndpoint. Each RpcEndpoint processes messages on a single thread. The mailbox queues messages in FIFO order. No concurrent access is possible. No locks are needed.
 
-The RPC layer provides type-safe communication. RpcGateway interfaces define contracts (like AWS SDK client interfaces). Dynamic proxies implement these interfaces (like SDK internal handlers). RpcService abstracts the transport layer—currently Pekko, but designed to be swappable with gRPC or HTTP implementations. RpcEndpoint handles requests (like Servlets). The result is distributed method invocation that feels like local calls.
+The RPC layer provides type-safe communication. RpcGateway interfaces define contracts (like AWS SDK client interfaces). Dynamic proxies implement these interfaces (like SDK internal handlers). RpcService abstracts the transport layer - currently Pekko, but designed to be swappable with gRPC or HTTP implementations. RpcEndpoint handles requests (like Servlets). The result is distributed method invocation that feels like local calls.
 
 This architecture has served Flink well for years. It enables correct coordination across hundreds of distributed components. It simplifies debugging and testing. It allows developers to write straightforward sequential code for inherently concurrent problems.
