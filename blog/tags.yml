@@ -37,3 +37,18 @@ tutorial:
   label: Tutorial
   permalink: /tutorial
   description: Step-by-step tutorials and guides
+
+aws:
+  label: AWS
+  permalink: /aws
+  description: Amazon Web Services tutorials and guides
+
+ec2:
+  label: EC2
+  permalink: /ec2
+  description: Amazon EC2 compute instances
+
+cloud:
+  label: Cloud
+  permalink: /cloud
+  description: Cloud computing concepts and best practices

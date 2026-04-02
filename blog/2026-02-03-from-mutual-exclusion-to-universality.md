@@ -117,16 +117,17 @@ But to prove that limitation mathematically, and to understand which primitives 
 
 **Linearizability provides the gold standard: a concurrent execution is correct if it appears equivalent to some sequential execution, where each operation takes effect instantaneously at some point between its invocation and response.** This "linearization point" gives us a powerful mental model: despite the chaos of concurrent operations overlapping in time, we can reason about them as if they happened one at a time in some valid order. A concurrent queue is correct if it behaves like a sequential FIFO queue, just with operations atomically "snapping" into place at their linearization points. Critically, linearizability is compositional: if each individual object in your system is linearizable, the entire system is linearizable. This compositionality is what makes large-scale concurrent systems tractable: you can reason about components independently without worrying about how their combination might violate correctness.
 
-Visualizing linearization points helps clarify this concept:
+A quick example makes this concrete. Suppose three threads hit a queue concurrently:
 
-| Concurrent Execution (Time) | Sequential View (Linearization) |
-|----------------------------|--------------------------------|
-| Thread 1: `[enqueue(5)──────────]` | `enqueue(5)` ← linearization point |
-| Thread 2: `[enqueue(7)────────]` | `enqueue(7)` ← linearization point |
-| Thread 3: `[dequeue()──────]` | `dequeue()` ← linearization point<br/>(returns 5) |
-| *Operations overlap in time* | *Equivalent sequential order* |
+```
+Time -------------------------------------------->
 
-Even though operations overlap in real time, linearizability allows us to find a point (the linearization point) for each operation where it appears to take effect atomically. The sequential view shows one valid ordering that matches the concurrent execution's behavior. This mental model makes reasoning about correctness tractable: we can verify correctness by checking if there exists a valid sequential ordering.
+T1:  |——— enqueue(5) ———|
+T2:       |——— enqueue(7) ———|
+T3:            |—— dequeue() ——|
+```
+
+These operations overlap, but linearizability says we can pick one instant within each operation's interval where it "takes effect." One valid linearization order: `enqueue(5)`, then `enqueue(7)`, then `dequeue() → 5`. The queue behaves as if those three calls happened sequentially in that order. Verifying correctness reduces to: does some valid sequential ordering exist that respects the real-time constraints?
 
 **Beyond correctness, we need to characterize how much blocking we're willing to tolerate, which progress conditions formalize into a precise hierarchy.** Wait-freedom is the strongest guarantee: every thread completes its operation in a bounded number of steps, regardless of what other threads do, even if they crash or run arbitrarily slowly. Lock-freedom weakens this slightly: at least one thread always makes progress, though individual threads might starve. Obstruction-freedom weakens further: a thread makes progress if it eventually runs without interference. At the bottom sits traditional blocking synchronization using locks, where threads can wait indefinitely. This hierarchy isn't just theoretical taxonomy: it has direct performance implications. Wait-free algorithms never stall on slow threads, making them ideal for real-time systems. Lock-free algorithms avoid deadlock and convoying but may starve individual threads. Blocking algorithms are simpler to write but vulnerable to priority inversion, deadlock, and performance collapse under contention.
 

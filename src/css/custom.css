@@ -1001,6 +1001,11 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
    TABLE STYLING
    ============================================ */
 
+/* Table container - ensure tables don't overflow the content area */
+.markdown {
+  overflow-x: auto;
+}
+
 .markdown table {
   width: 100%;
   border-collapse: collapse;
@@ -1008,7 +1013,6 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   font-size: 0.875rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  border: 1px solid #e2e8f0;
 }
 
 [data-theme='dark'] .markdown table {
@@ -1034,6 +1038,7 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #e2e8f0;
 }
+
 
 [data-theme='dark'] .markdown td {
   border-bottom-color: #334155;
