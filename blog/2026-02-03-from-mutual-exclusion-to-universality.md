@@ -122,9 +122,9 @@ A quick example makes this concrete. Suppose three threads hit a queue concurren
 ```
 Time -------------------------------------------->
 
-T1:  |——— enqueue(5) ———|
-T2:       |——— enqueue(7) ———|
-T3:            |—— dequeue() ——|
+T1:  |--- enqueue(5) ---|
+T2:       |--- enqueue(7) ---|
+T3:            |-- dequeue() --|
 ```
 
 These operations overlap, but linearizability says we can pick one instant within each operation's interval where it "takes effect." One valid linearization order: `enqueue(5)`, then `enqueue(7)`, then `dequeue() → 5`. The queue behaves as if those three calls happened sequentially in that order. Verifying correctness reduces to: does some valid sequential ordering exist that respects the real-time constraints?

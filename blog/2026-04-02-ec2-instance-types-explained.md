@@ -161,7 +161,7 @@ flowchart TD
     G -->|No| I[Throttled to baseline]
 ```
 
-Each T instance size has a **baseline utilization**. `t3.medium` has a baseline of 20%—it can sustain 20% CPU without consuming credits. Above that burns credits; below that earns them.
+Each T instance size has a **baseline utilization**. `t3.medium` has a baseline of 20% - it can sustain 20% CPU without consuming credits. Above that burns credits; below that earns them.
 
 **T3 vs T4g:**
 
@@ -342,11 +342,11 @@ graph TB
 
 **Nitro Cards** offload networking and storage to dedicated hardware, freeing nearly 100% of host CPU for your workload (traditional hypervisors handle these in software, stealing CPU cycles).
 
-**Nitro Security Chip** provides a hardware root of trust. It controls access to host hardware and firmware—even AWS operators cannot access your instance's memory or compute state.
+**Nitro Security Chip** provides a hardware root of trust. It controls access to host hardware and firmware - even AWS operators cannot access your instance's memory or compute state.
 
 **Nitro Hypervisor** handles only vCPU and memory allocation (unlike Xen, which older EC2 used). Networking and storage run on Nitro Cards, so overhead is minimal. For `metal` sizes, the hypervisor is not used at all.
 
-**Nitro Enclaves** provide isolated compute environments—separate VMs with their own kernel and memory, no persistent storage, no network access. The only communication channel is a local socket to the parent instance. Suitable for processing sensitive data (PII, financial, healthcare).
+**Nitro Enclaves** provide isolated compute environments - separate VMs with their own kernel and memory, no persistent storage, no network access. The only communication channel is a local socket to the parent instance. Suitable for processing sensitive data (PII, financial, healthcare).
 
 ### Why Nitro Matters For Instance Selection
 
@@ -354,7 +354,7 @@ graph TB
 2. **Networking:** Up to 200 Gbps bandwidth (`n` suffix instances) vs. 25 Gbps on traditional instances.
 3. **EBS performance:** Up to 40 Gbps EBS bandwidth and 256K IOPS via hardware I/O offload.
 4. **Bare metal:** Networking and storage on dedicated cards let AWS give you the full host CPU without a hypervisor.
-5. **Security:** Hardware root of trust protects the instance even from the physical host—required by many compliance frameworks.
+5. **Security:** Hardware root of trust protects the instance even from the physical host - required by many compliance frameworks.
 
 **Practical takeaway:** Always prefer Nitro-based instances (generation 5+). Faster, more secure, and often cheaper per unit of performance.
 
@@ -425,7 +425,7 @@ You can combine both: run Flex instances as Spot for maximum savings on fault-to
 
 ## Processor Choices: Intel vs AMD vs Graviton
 
-The processor suffix is one of the highest-impact choices you make—it affects price, performance, and compatibility.
+The processor suffix is one of the highest-impact choices you make - it affects price, performance, and compatibility.
 
 ### Intel (no suffix or `i` suffix)
 
@@ -441,7 +441,7 @@ Intel instances use Xeon Scalable processors. Default option with the broadest s
 
 ### AMD (`a` suffix)
 
-AMD instances use EPYC processors—x86 compatibility at a lower price.
+AMD instances use EPYC processors - x86 compatibility at a lower price.
 
 **Strengths:**
 - ~10% cheaper than equivalent Intel instances
@@ -453,7 +453,7 @@ AMD instances use EPYC processors—x86 compatibility at a lower price.
 
 ### AWS Graviton (`g` suffix)
 
-Graviton instances use AWS-designed ARM processors—best price-performance of the three.
+Graviton instances use AWS-designed ARM processors - best price-performance of the three.
 
 **Strengths:**
 - Up to 40% better price-performance vs x86 (AWS benchmarks)
@@ -518,7 +518,7 @@ Start based on your requirements, monitor utilization for a week, then right-siz
 
 ### Step 5: Consider Flex
 
-If you chose M7i or C7i, check whether the Flex variant meets your needs—same specs at a lower price with minor hardware flexibility trade-offs.
+If you chose M7i or C7i, check whether the Flex variant meets your needs - same specs at a lower price with minor hardware flexibility trade-offs.
 
 ### Quick Reference Table
 
@@ -544,6 +544,6 @@ If you chose M7i or C7i, check whether the Flex variant meets your needs—same 
 
 ## Summary
 
-Instance type names encode family, generation, processor, capabilities, and size. The Nitro System (generation 5+) offloads networking, storage, and security to dedicated hardware, giving your workload nearly 100% of host CPU. Flex instances trade minor hardware variability for lower prices—ideal for stateless and containerized workloads.
+Instance type names encode family, generation, processor, capabilities, and size. The Nitro System (generation 5+) offloads networking, storage, and security to dedicated hardware, giving your workload nearly 100% of host CPU. Flex instances trade minor hardware variability for lower prices - ideal for stateless and containerized workloads.
 
 To choose: identify your bottleneck, pick the latest generation, prefer Graviton (or AMD/Intel when needed), and right-size based on observed utilization. Use the quick reference table as a starting point and let AWS Compute Optimizer guide you from there.
