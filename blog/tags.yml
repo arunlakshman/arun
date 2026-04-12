@@ -52,3 +52,8 @@ cloud:
   label: Cloud
   permalink: /cloud
   description: Cloud computing concepts and best practices
+
+virtualization:
+  label: Virtualization
+  permalink: /virtualization
+  description: Virtualization technologies, hypervisors, and virtual machine architecture
