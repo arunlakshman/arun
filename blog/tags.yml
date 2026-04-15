@@ -57,3 +57,18 @@ virtualization:
   label: Virtualization
   permalink: /virtualization
   description: Virtualization technologies, hypervisors, and virtual machine architecture
+
+firecracker:
+  label: Firecracker
+  permalink: /firecracker
+  description: AWS Firecracker microVM technology and lightweight virtualization
+
+serverless:
+  label: Serverless
+  permalink: /serverless
+  description: Serverless computing, AWS Lambda, and event-driven architectures
+
+kvm:
+  label: KVM
+  permalink: /kvm
+  description: Kernel-based Virtual Machine and Linux virtualization
