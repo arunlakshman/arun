@@ -72,3 +72,18 @@ kvm:
   label: KVM
   permalink: /kvm
   description: Kernel-based Virtual Machine and Linux virtualization
+
+distributed-systems:
+  label: Distributed Systems
+  permalink: /distributed-systems
+  description: Distributed systems design, consensus, and coordination
+
+s3:
+  label: S3
+  permalink: /s3
+  description: Amazon S3 object storage
+
+cas:
+  label: CAS
+  permalink: /cas
+  description: Compare-and-swap and consensus primitives
