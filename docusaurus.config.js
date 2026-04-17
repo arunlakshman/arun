@@ -52,6 +52,7 @@ const config = {
         enableInDevelopment: true,
       },
     ],
+    require.resolve('./plugins/social-cards'),
   ],
 
   presets: [
@@ -83,11 +84,24 @@ const config = {
     ],
   ],
 
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: { property: 'og:type', content: 'website' },
+    },
+    {
+      tagName: 'meta',
+      attributes: { name: 'twitter:card', content: 'summary_large_image' },
+    },
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/social-card.png',
+      metadata: [
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
       colorMode: {
         defaultMode: 'light',
         respectPrefersColorScheme: false,
