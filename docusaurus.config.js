@@ -64,6 +64,7 @@ const config = {
         blog: {
           routeBasePath: '/', // Make blog the landing page
           showReadingTime: true,
+          blogSidebarCount: 'ALL',
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,

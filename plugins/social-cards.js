@@ -28,40 +28,58 @@ async function generateCard(title, outputPath) {
   const canvas = createCanvas(WIDTH, HEIGHT);
   const ctx = canvas.getContext('2d');
 
-  // Blue gradient background
-  const bg = ctx.createLinearGradient(0, 0, WIDTH, HEIGHT);
-  bg.addColorStop(0, '#1e3a5f');
-  bg.addColorStop(1, '#0f172a');
-  ctx.fillStyle = bg;
+  // Cream paper background
+  ctx.fillStyle = '#f3ead4';
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  // Top accent bar
-  const accent = ctx.createLinearGradient(0, 0, WIDTH, 0);
-  accent.addColorStop(0, '#3b82f6');
-  accent.addColorStop(1, '#8b5cf6');
-  ctx.fillStyle = accent;
-  ctx.fillRect(0, 0, WIDTH, 6);
+  // Subtle paper texture — horizontal ruled lines
+  ctx.strokeStyle = 'rgba(201, 189, 154, 0.3)';
+  ctx.lineWidth = 0.5;
+  for (let y = 80; y < HEIGHT - 80; y += 32) {
+    ctx.beginPath();
+    ctx.moveTo(60, y);
+    ctx.lineTo(WIDTH - 60, y);
+    ctx.stroke();
+  }
 
-  // Title in Monaco
-  const maxTextWidth = 1040;
-  ctx.font = '600 48px Monaco';
-  ctx.fillStyle = '#f8fafc';
+  // Top vermillion accent bar
+  ctx.fillStyle = '#c2371f';
+  ctx.fillRect(0, 0, WIDTH, 5);
+
+  // Section mark ornament
+  ctx.font = 'italic 28px Georgia, serif';
+  ctx.fillStyle = '#8a7a62';
+  ctx.fillText('§', 80, 120);
+
+  // Vermillion rule under ornament
+  ctx.fillStyle = '#c2371f';
+  ctx.fillRect(80, 135, 40, 2);
+
+  // Title — italic serif style
+  const maxTextWidth = 1000;
+  ctx.font = 'italic 52px Georgia, serif';
+  ctx.fillStyle = '#1a1612';
   const lines = wrapText(ctx, title, maxTextWidth);
-  const lineHeight = 62;
+  const lineHeight = 68;
   const titleBlockHeight = lines.length * lineHeight;
-  const startY = Math.max(160, 280 - titleBlockHeight / 2);
+  const startY = Math.max(220, 310 - titleBlockHeight / 2);
   for (let i = 0; i < lines.length; i++) {
     ctx.fillText(lines[i], 80, startY + i * lineHeight);
   }
 
-  // URL
-  ctx.font = '22px Monaco';
-  ctx.fillStyle = '#64748b';
-  ctx.fillText('arunlakshman.info', 80, 550);
+  // Author line
+  ctx.font = '20px Monaco, monospace';
+  ctx.fillStyle = '#8a7a62';
+  ctx.fillText('Arun Lakshman Ravichandran', 80, 520);
 
-  // Bottom accent bar
-  ctx.fillStyle = accent;
-  ctx.fillRect(0, HEIGHT - 6, WIDTH, 6);
+  // URL
+  ctx.font = '18px Monaco, monospace';
+  ctx.fillStyle = '#c2371f';
+  ctx.fillText('arunlakshman.info', 80, 555);
+
+  // Bottom vermillion accent bar
+  ctx.fillStyle = '#c2371f';
+  ctx.fillRect(0, HEIGHT - 5, WIDTH, 5);
 
   // Write PNG
   const dir = path.dirname(outputPath);
