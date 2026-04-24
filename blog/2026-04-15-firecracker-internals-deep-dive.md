@@ -1,6 +1,6 @@
 ---
 slug: firecracker-internals-deep-dive
-title: "Firecracker Internals: A Deep Dive for Software Engineers"
+title: "Firecracker Internals"
 authors: [Arun]
 tags: [aws, virtualization, firecracker, serverless, kvm]
 date: 2026-04-15

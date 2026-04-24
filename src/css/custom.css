@@ -57,7 +57,7 @@
  --ifm-font-family-monospace: 'Monaco', 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
  --ifm-font-size-base: 17px;
  --ifm-line-height-base: 1.72;
- --ifm-h1-font-size: 2.6rem;
+ --ifm-h1-font-size: 2rem;
  --ifm-h2-font-size: 0.82rem;
  --ifm-h3-font-size: 1.35rem;
  --ifm-h4-font-size: 1.05rem;
@@ -166,6 +166,18 @@ article h1:first-child::after,
  height: 2px;
  background: var(--vermillion);
  margin-top: 1.1rem;
+}
+
+/* Blog listing page: post titles are rendered as h2 inside article header */
+article header h2 {
+ font-family: var(--ifm-heading-font-family) !important;
+ font-size: 2rem !important;
+ font-weight: 500 !important;
+ font-style: italic !important;
+ letter-spacing: -0.02em !important;
+ line-height: 1.15 !important;
+ text-transform: none !important;
+ color: var(--ink) !important;
 }
 
 .markdown h2 {
@@ -776,3 +788,24 @@ div[class*="codeBlockTitle"] {
 }
 
 .about-social-link svg { flex-shrink: 0; }
+
+/* ---------- BLOG LIST: hide tags, clean up footer ------------ */
+/* The article <footer> itself has class="row", so target footer.row directly */
+
+/* Hide the tags column (col--9) in blog post cards */
+article > footer.row > .col.col--9 {
+  display: none !important;
+}
+
+/* Let "Read more" column sit naturally */
+article > footer.row {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+article > footer.row > .col {
+  --ifm-col-width: auto !important;
+  flex: 0 0 auto !important;
+  max-width: none !important;
+  width: auto !important;
+}
