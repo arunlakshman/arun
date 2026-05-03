@@ -659,6 +659,7 @@ div[class*="codeBlockTitle"] {
  --ifm-col-width: 100% !important;
  flex: unset !important;
  max-width: 100% !important;
+ min-width: 0 !important;
  width: 100% !important;
  padding: 0 !important;
 }
@@ -808,4 +809,15 @@ article > footer.row > .col {
   flex: 0 0 auto !important;
   max-width: none !important;
   width: auto !important;
+}
+
+/* Prevent mermaid diagrams from blowing out mobile page width */
+.docusaurus-mermaid-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.docusaurus-mermaid-container svg {
+  max-width: none !important;
+  display: block;
 }
