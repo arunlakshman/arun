@@ -685,8 +685,10 @@ div[class*="codeBlockTitle"] {
  padding: 0 1rem !important;
 }
 
-/* Blog post content should breathe — only on individual post pages */
-.blog-post-page article { max-width: 80%; }
+/* Cap prose line length for comfortable reading (~75 chars) */
+.blog-post-page .markdown {
+ max-width: 72ch;
+}
 
 /* TOC sticks and doesn't overflow */
 .col[class*="--2"] {
