@@ -458,13 +458,29 @@ div[class*="codeBlockTitle"] {
 /* ---------- TOC (right) -------------------------------------- */
 .table-of-contents {
  font-family: var(--ifm-heading-font-family);
- font-size: 0.7rem;
- letter-spacing: 0.14em;
- text-transform: uppercase;
  border-left: 1px solid var(--rule);
  padding-left: 1rem;
 }
-.table-of-contents__link { color: var(--ink-faint); font-weight: 500; }
+
+/* H2-level entries: small-caps label style */
+.table-of-contents > li > .table-of-contents__link {
+ font-size: 0.72rem;
+ font-weight: 700;
+ letter-spacing: 0.16em;
+ text-transform: uppercase;
+ color: var(--ink-soft);
+}
+
+/* H3-level entries: readable, no caps */
+.table-of-contents .table-of-contents__link {
+ font-size: 0.82rem;
+ font-weight: 400;
+ letter-spacing: 0;
+ text-transform: none;
+ color: var(--ink-faint);
+ line-height: 1.5;
+}
+
 .table-of-contents__link:hover,
 .table-of-contents__link--active { color: var(--vermillion); text-decoration: none; }
 .table-of-contents__left-border { border-left-color: var(--rule); }
