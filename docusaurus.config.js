@@ -129,34 +129,7 @@ const config = {
         additionalLanguages: ['bash', 'java', 'yaml', 'json', 'docker'],
       },
       mermaid: {
-        theme: { light: 'base', dark: 'base' },
-        options: {
-          themeVariables: {
-            // Light — cream paper palette
-            background: '#f3ead4',
-            mainBkg: '#f8f1de',
-            nodeBorder: '#c9bd9a',
-            clusterBkg: '#ebe1c4',
-            clusterBorder: '#c9bd9a',
-            titleColor: '#1a1612',
-            edgeLabelBackground: '#f3ead4',
-            // Nodes
-            primaryColor: '#f8f1de',
-            primaryBorderColor: '#c9bd9a',
-            primaryTextColor: '#1a1612',
-            secondaryColor: '#ebe1c4',
-            secondaryBorderColor: '#c9bd9a',
-            secondaryTextColor: '#1a1612',
-            tertiaryColor: '#f3ead4',
-            tertiaryBorderColor: '#c9bd9a',
-            tertiaryTextColor: '#1a1612',
-            // Edges & lines
-            lineColor: '#4a3f33',
-            // Special nodes
-            errorBkgColor: '#f8e8e5',
-            errorTextColor: '#9a2814',
-          },
-        },
+        theme: { light: 'base', dark: 'dark' },
       },
     }),
 };

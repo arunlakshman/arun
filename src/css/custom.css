@@ -839,3 +839,57 @@ article > footer.row > .col {
   max-width: none !important;
   display: block;
 }
+
+/* ---------- MERMAID: light mode (base theme) — paper palette --- */
+.docusaurus-mermaid-container svg .label-container,
+.docusaurus-mermaid-container svg rect.basic {
+  fill: #f8f1de !important;
+  stroke: #c9bd9a !important;
+}
+.docusaurus-mermaid-container svg .cluster rect {
+  fill: #ebe1c4 !important;
+  stroke: #c9bd9a !important;
+}
+.docusaurus-mermaid-container svg .edgePath .path,
+.docusaurus-mermaid-container svg .flowchart-link {
+  stroke: #4a3f33 !important;
+}
+.docusaurus-mermaid-container svg marker path {
+  fill: #4a3f33 !important;
+  stroke: #4a3f33 !important;
+}
+.docusaurus-mermaid-container svg .nodeLabel,
+.docusaurus-mermaid-container svg .label {
+  color: #1a1612 !important;
+}
+.docusaurus-mermaid-container svg .edgeLabel {
+  background-color: #f3ead4 !important;
+  color: #1a1612 !important;
+}
+
+/* ---------- MERMAID: dark mode — ink palette ------------------- */
+[data-theme='dark'] .docusaurus-mermaid-container svg .label-container,
+[data-theme='dark'] .docusaurus-mermaid-container svg rect.basic {
+  fill: #1d1813 !important;
+  stroke: #3a3328 !important;
+}
+[data-theme='dark'] .docusaurus-mermaid-container svg .cluster rect {
+  fill: #0e0b08 !important;
+  stroke: #3a3328 !important;
+}
+[data-theme='dark'] .docusaurus-mermaid-container svg .edgePath .path,
+[data-theme='dark'] .docusaurus-mermaid-container svg .flowchart-link {
+  stroke: #b8aa8a !important;
+}
+[data-theme='dark'] .docusaurus-mermaid-container svg marker path {
+  fill: #b8aa8a !important;
+  stroke: #b8aa8a !important;
+}
+[data-theme='dark'] .docusaurus-mermaid-container svg .nodeLabel,
+[data-theme='dark'] .docusaurus-mermaid-container svg .label {
+  color: #ede4cc !important;
+}
+[data-theme='dark'] .docusaurus-mermaid-container svg .edgeLabel {
+  background-color: #15110d !important;
+  color: #ede4cc !important;
+}
